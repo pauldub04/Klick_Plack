@@ -15,13 +15,19 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'Admin',
             'email' => 'admin@test.com',
-            'password' => Hash::make('admin')
+            'password' => Hash::make('admin'),
+            'coins' => 0,
+            'bought' => json_encode(array(0,0)),
+            'onClick' => 1,
         ]);        
    
         User::create([
             'name' => 'User',
             'email' => 'user@test.com',
-            'password' => Hash::make('user')
+            'password' => Hash::make('user'),
+            'coins' => 0,
+            'bought' => json_encode(array(0,0)),
+            'onClick' => 1,
         ]);
     }
 }

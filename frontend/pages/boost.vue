@@ -1,5 +1,7 @@
 <template>
     <v-app>
+        <Navigation :list="navigation">Клик Плак</Navigation>
+
         <v-content>
             <v-container>
                 <v-row align="center" class="mb-10">
@@ -10,10 +12,10 @@
                 </v-row>
                 <v-card v-for="boost in boosts" :key="boost.id"
                     class="mx-auto mt-5"
-                    max-width="500"
+                    width="500"
                 >
                     <v-card-title>
-                        {{boost.name}}
+                        <h4>{{boost.name}}</h4>
                         <v-img class="img" height="150" :src="boost.img"></v-img>
                     </v-card-title>
                     <v-card-subtitle>
@@ -23,8 +25,10 @@
                         <br/>
                         Куплено: {{boost.ammount}}
                     </v-card-subtitle>
-                    <v-card-actions>
-                        <v-btn @click="newBoost(boost.id)">Купить</v-btn>
+                    <v-divider></v-divider>
+                    <v-card-actions class="px-3 py-3">
+                        <v-spacer></v-spacer>
+                        <v-btn @click="newBoost(boost.id)" color="success">Купить</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-container>
@@ -32,7 +36,13 @@
     </v-app>
 </template>
 <script>
+import Navigation from '~/components/Navigation.vue'
+
 export default {
+    middleware: 'auth',
+    components: {
+        Navigation,
+    },
     data(){
         return{
             boosts: [
@@ -48,29 +58,46 @@ export default {
                 },
                 {
                     name: 'Сковородка из пубга',
-                    boost: 5,
-                    price: 200,
+                    boost: 10,
+                    price: 100,
                     icon: 'mdi-flask-empty',
                     img: "https://dosh-home.com/img/products/306/5bdc85c0c4145.png",
                     ammount: 0,
                     id: 1,
                 },
-            ]
+            ],
+            navigation: [ //навигация для компонента
+                {
+                    icon: 'mdi-home',
+                    path: '/',
+                    title: 'Главная',
+                },
+                {
+                    icon: 'mdi-cursor-default-outline',
+                    path: '/clicker',
+                    title: 'Кликер',
+                },
+            ],
         }
     },
     methods: {
         newBoost(id){
-            //а еще смотреть, что у нас есть деньги
-            //здесь надо пушить то, что мы купили новый дилдо на сервер
             if(this.$store.getters.getCoins >= this.boosts[id].price){
                 this.$store.dispatch('ChangeCoins', this.$store.getters.getCoins-this.boosts[id].price);
                 this.$store.dispatch('ChangeClicks', this.boosts[id].boost);
+                this.$store.dispatch('AddBought', id);
                 this.boosts[id].ammount++;
             } else {
                 console.log("Not enough money");
                 alert("Недостаточно денег");
             }
-        }
+        },
+    },
+    mounted() {
+        let bought = this.$store.getters.getUser.bought;
+        console.log(bought);
+        for (let i = 0; i < this.boosts.length; i++)
+            this.boosts[i].ammount = bought[i];
     }
 }
 </script>

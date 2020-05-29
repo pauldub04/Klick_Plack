@@ -1,5 +1,8 @@
 import colors from 'vuetify/es5/util/colors'
 
+let myenv = require('dotenv').config().parsed
+//console.log(myenv);
+
 export default {
   mode: 'universal',
   /*
@@ -43,13 +46,17 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    'cookie-universal-nuxt',
+    '@nuxtjs/dotenv',
   ],
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    proxy: true
   },
+  proxy: [myenv.PROXY_API_URL],
   /*
   ** vuetify module configuration
   ** https://github.com/nuxt-community/vuetify-module

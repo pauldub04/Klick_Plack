@@ -1,5 +1,7 @@
 <template>
     <v-app>
+        <Navigation :list="navigation">Клик Плак</Navigation>
+
         <v-content>
             <v-container>
                 <v-row align="center" class="mb-10">
@@ -30,7 +32,14 @@
     </v-app>
 </template>
 <script>
+import Navigation from '~/components/Navigation.vue'
+
 export default {
+    middleware: 'auth',
+
+    components: {
+        Navigation,
+    },
     data(){
         return{
             users: [
@@ -48,6 +57,18 @@ export default {
                     ammount: '0', //количество денег (пока хз каких (мб пельменей)) у бомжа
                     id: 1, //айди бомжа
                 }
+            ],
+            navigation: [ //навигация для компонента
+                {
+                    icon: 'mdi-home',
+                    path: '/',
+                    title: 'Главная',
+                },
+                {
+                    icon: 'mdi-cursor-default-outline',
+                    path: '/clicker',
+                    title: 'Кликер',
+                },
             ],
         }
     },

@@ -1,5 +1,7 @@
 <template>
   <v-app>
+    <Navigation :list="navigation">Клик Плак</Navigation>
+
     <v-content>
       <v-container>
         <v-row>
@@ -21,7 +23,7 @@
           </v-col>
 
           <v-col cols="1"> <!--правая сторона (кнопки)-->
-            <v-row>
+            <!--<v-row class="mb-10">
               <v-btn to="/top"  height="100" width="100" color="orange">
                 <v-icon large color="white">mdi-star</v-icon>
               </v-btn>
@@ -30,8 +32,8 @@
               <v-btn to="/send" class="my-10" height="100" width="100" color="primary">
                 <v-icon large>mdi-send</v-icon>
               </v-btn>
-            </v-row>
-              <v-row>
+            </v-row>-->
+            <v-row>
               <v-btn to="/boost" height="100" width="100" color="success">
                 <v-icon large>mdi-rocket</v-icon>
               </v-btn>
@@ -47,25 +49,56 @@
 </template>
 
 <script>
+import Navigation from '~/components/Navigation.vue'
+
 export default {
+  middleware: 'auth',
+  components: {
+      Navigation,
+  },
   data(){
     return {
       coins: 0,
       coinsPerClick: 1,
+      clicks: 0,
+      navigation: [ //навигация для компонента
+        {
+            icon: 'mdi-home',
+            path: '/',
+            title: 'Главная',
+        },
+        /*{
+            icon: 'mdi-star',
+            path: '/top',
+            title: 'Топ пользователей',
+        },
+        {
+            icon: 'mdi-send',
+            path: '/send',
+            title: 'Отправить',
+        },*/
+        {
+            icon: 'mdi-rocket',
+            path: '/boost',
+            title: 'Буст',
+        },
+      ],
     }
   },
   methods:{
     increasing(){
       this.coins += this.coinsPerClick;
-      //if (this.coins % 10 == 0) //чтобы каждые 10 кликов оно сохранялось а не каждый клик
+      this.clicks += 1;
       this.$store.dispatch('ChangeCoins', this.coins);
+      if (this.clicks % 10 == 0)
+        this.$store.dispatch('send');
     },
     save() {
 
     }
   },
   mounted(){
-    this.$store.dispatch('Restore', this.coins); //восстановливает из localStorage
+    this.$store.dispatch('Restore', this.coins);
     this.coins = this.$store.getters.getCoins;
     this.coinsPerClick = this.$store.getters.getOnClick;
   }
