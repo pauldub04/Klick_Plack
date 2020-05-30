@@ -1,5 +1,7 @@
 <template>
   <v-app>
+    <Navigation :list="navigation">Клик Плак</Navigation>
+
     <v-content>
       <v-container
         class="fill-height"
@@ -58,21 +60,48 @@
 </template>
 
 <script>
+import Navigation from '~/components/Navigation.vue'
+
 export default {
+    components: {
+        Navigation,
+    },
     data(){
       return{
           login: '',
           password1: '',
           password2: '',
           showPassword: false,
+          navigation: [ //навигация для компонента
+                {
+                    icon: 'mdi-home',
+                    path: '/',
+                    title: 'Главная',
+                },
+                {
+                    icon: 'mdi-cursor-default-outline',
+                    path: '/clicker',
+                    title: 'Кликер',
+                },
+            ],
       }
     },
     methods: {
         signup() {
-            //надо сделать регистрацию
-            if (true) {
-                alert("Вы успешно создали аккуант!")
-                this.$router.push('/login');
+            if (this.password1 == this.password2) {
+              try {
+                this.$axios.post('/api/reg',
+                  {
+                    email: this.login,
+                    password: this.password1,
+                  }
+                )
+                this.$router.push('/clicker');
+              } catch(err) {
+                console.log('error while reg', err);
+              }
+            } else {
+              alert("Пароли не совпадают!");
             }
         }
     }

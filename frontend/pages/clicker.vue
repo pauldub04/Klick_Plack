@@ -90,7 +90,7 @@ export default {
       this.coins += this.coinsPerClick;
       this.clicks += 1;
       this.$store.dispatch('ChangeCoins', this.coins);
-      if (this.clicks % 10 == 0)
+      if (this.clicks % 5 == 0)
         this.$store.dispatch('send');
     },
     save() {

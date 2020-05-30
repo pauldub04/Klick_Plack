@@ -22,7 +22,7 @@
         </v-toolbar-title>
         <v-spacer />
 
-        <v-row v-if="$store.getters.getUser" class="justify-end mr-1">
+        <v-row v-if="$store.getters.getUser" class="justify-end mr-1    ">
             <v-col cols="1" class="mt-4">
                 <v-icon class="">mdi-account</v-icon>
             </v-col>

@@ -28,7 +28,7 @@
             </v-card-text>
             <v-divider></v-divider>
             <v-card-actions class="px-3 py-3">
-              <!--<v-btn color="success" @click="signup()">Создать аккаунт</v-btn>-->
+              <v-btn color="success" @click="signup()">Создать аккаунт</v-btn>
               <v-spacer></v-spacer>
               <v-btn color="primary" @click="signin()">Войти</v-btn>
             </v-card-actions>

@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@test.com',
             'password' => Hash::make('admin'),
             'coins' => 0,
-            'bought' => json_encode(array(0,0)),
+            'bought' => json_encode(array(0,0,0,0,0,0,0,0,0,0,0,0,0)),
             'onClick' => 1,
         ]);        
    
@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'user@test.com',
             'password' => Hash::make('user'),
             'coins' => 0,
-            'bought' => json_encode(array(0,0)),
+            'bought' => json_encode(array(0,0,0,0,0,0,0,0,0,0,0,0,0)),
             'onClick' => 1,
         ]);
     }

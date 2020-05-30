@@ -40,6 +40,18 @@ Route::get('/all_users', function (Request $request) {
     $users = App\User::all()->sortBy('coins');;
     return $users;
 });
+
+Route::post('/reg', function (Request $request) {
+    $user = new User;
+    $user->name = $request->email;
+    $user->email = $request->email;
+    $user->password = Hash::make($request->password);
+    $user->coins = 0;
+    $user->bought = json_encode(array(0,0,0,0,0,0,0,0,0,0,0,0,0));
+    $user->onClick = 1;
+    $user->save();
+});
+
 /*
 Route::middleware('auth:sanctum')->get('/book/all', 'BookController@all');
 Route::middleware('auth:sanctum')->post('/book/add', 'BookController@add');

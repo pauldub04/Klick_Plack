@@ -5,7 +5,8 @@
       <v-container>
         <h1>Главная</h1>
         <v-row justify="center" class="mt-10" v-if="!$store.getters.getUser">
-          <v-btn to="/clicker" large color="primary">Войти</v-btn>
+          <v-btn to="/login" large color="primary">Войти</v-btn>
+          <v-btn to="/signup" large class="ml-5" color="success">Создать аккаунт</v-btn>
         </v-row>
         <v-row justify="center" class="mt-10" v-else>
           <v-btn to="/clicker" large color="success">Перейти на кликер</v-btn>
