@@ -96,10 +96,10 @@ export default {
                     password: this.password1,
                   }
                 )
-                this.$router.push('/clicker');
               } catch(err) {
                 console.log('error while reg', err);
               }
+              
             } else {
               alert("Пароли не совпадают!");
             }

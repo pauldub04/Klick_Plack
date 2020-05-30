@@ -52,6 +52,15 @@ Route::post('/reg', function (Request $request) {
     $user->save();
 });
 
+Route::middleware('auth:sanctum')->post('/send_coins', function (Request $request) {
+    $me = User::where('email', $request->my_email)->first();
+    $user = User::where('email', $request->email)->first();
+    $user->coins += $request->ammount;
+    $user->save();
+    $me->coins -= $request->ammount;
+    $me->save();
+});
+
 /*
 Route::middleware('auth:sanctum')->get('/book/all', 'BookController@all');
 Route::middleware('auth:sanctum')->post('/book/add', 'BookController@add');

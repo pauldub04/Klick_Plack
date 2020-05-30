@@ -23,16 +23,16 @@
           </v-col>
 
           <v-col cols="1"> <!--правая сторона (кнопки)-->
-            <v-row class="mb-10">
+            <v-row>
               <v-btn to="/top"  height="100" width="100" color="orange">
                 <v-icon large color="white">mdi-star</v-icon>
               </v-btn>
             </v-row>
-            <!--<v-row>
+            <v-row>
               <v-btn to="/send" class="my-10" height="100" width="100" color="primary">
                 <v-icon large>mdi-send</v-icon>
               </v-btn>
-            </v-row>-->
+            </v-row>
             <v-row>
               <v-btn to="/boost" height="100" width="100" color="success">
                 <v-icon large>mdi-rocket</v-icon>

@@ -11,30 +11,26 @@
             <v-card-text>
               <v-form class="px-3 py-3">
                 <v-text-field 
+                  label="Почта" 
+                  prepend-icon="mdi-account-circle"
                   type="text"
-                  label="Логин" 
-                  v-model="login"
-                  prepend-icon="mdi-email"
+                  v-model="nickname"
                 />
                 <v-text-field 
-                  type="text" 
-                  label="Количество"
-                  v-model="number"
-                  prepend-icon="mdi-numeric"
+                  label="Количество монет"
+                  v-model="ammount"
+                  prepend-icon="mdi-currency-usd-circle-outline"
                 />
               </v-form>
             </v-card-text>
             <v-divider></v-divider>
             <v-card-actions class="px-3 py-3">
-              <v-spacer></v-spacer>
-              <v-btn color="primary" @click="signin()">
-                <v-icon small color="gray">mdi-send</v-icon>
-              </v-btn>
+              <v-spacer/>
+              <v-btn color="primary" @click="Send()">Отправить</v-btn>
             </v-card-actions>
           </v-card>
       </v-container>
     </v-content>
-    
   </v-app>
 </template>
 
@@ -42,15 +38,13 @@
 import Navigation from '~/components/Navigation.vue'
 
 export default {
-    middleware: 'auth',
     components: {
         Navigation,
     },
     data(){
       return{
-          login: '',
-          number: 0,
-          showPassword: false,
+          nickname: '',
+          ammount: '',
           navigation: [ //навигация для компонента
                 {
                     icon: 'mdi-home',
@@ -66,16 +60,28 @@ export default {
       }
     },
     methods:{
-        signin(){
-            //Паша, работай (нахуй иди)
-            //тут еще с сервера надо коины получать и в клик (короче все о пользователе)
-            if(true){ //Тут условие, что ник и пароль подходят
-                this.$router.push('/clicker')
+        async Send(){ 
+            if(this.ammount < 0)
+                return alert("Число коинов не может быть меньше 0");
+            if(this.$store.getters.getCoins >= this.ammount){
+                try {
+                  await this.$axios.post('/api/send_coins',
+                    {
+                      my_email: this.$store.getters.getUser.email,
+                      email: this.nickname,
+                      ammount: this.ammount,
+                    }
+                  )
+                  await this.$store.dispatch('fetchUser');
+                  await this.$router.push('/clicker');
+                } catch(err) {
+                  console.log('error while reg', err);
+                }
+
             }
+            else
+                alert("Недостаточно коинов")
         },
-        signup() {
-          this.$router.push('/signup')
-        }
     }
 }
 </script>
