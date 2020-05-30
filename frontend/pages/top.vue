@@ -60,14 +60,14 @@ export default {
     mounted(){
         this.$axios.get('/api/all_users')
             .then(response => {
-                this.users = response.data;
-                console.log('users', response.data);
+                this.users = Object.values(response.data);
+                console.log('users', this.users);
                 this.users.sort(function (a, b) {
                     if (a.coins > b.coins) {
-                        return 1;
+                        return -1;
                     }
                     if (a.coins < b.coins) {
-                        return -1;
+                        return 1;
                     }
                     return 0;
                 });
