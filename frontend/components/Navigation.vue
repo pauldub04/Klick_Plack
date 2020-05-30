@@ -49,9 +49,9 @@ export default {
         }
     },
     methods: {
-        async logOut() {
-            await this.$store.dispatch('logout');
-            await this.$router.push('/');
+        logOut() {
+            this.$store.dispatch('logout');
+            this.$router.push('/');
         },
         draw() {
             this.drawer = !this.drawer;

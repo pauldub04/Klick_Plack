@@ -36,6 +36,10 @@ Route::middleware('auth:sanctum')->post('/send', function (Request $request) {
     return 200;
 });
 
+Route::get('/all_users', function (Request $request) {
+    $users = App\User::all()->sortBy('coins');;
+    return $users;
+});
 /*
 Route::middleware('auth:sanctum')->get('/book/all', 'BookController@all');
 Route::middleware('auth:sanctum')->post('/book/add', 'BookController@add');
