@@ -87,15 +87,16 @@ export default {
       }
     },
     methods: {
-        signup() {
+        async signup() {
             if (this.password1 == this.password2) {
               try {
-                this.$axios.post('/api/reg',
+                await this.$axios.post('/api/reg',
                   {
                     email: this.login,
                     password: this.password1,
                   }
                 )
+                await this.$router.push('/login');
               } catch(err) {
                 console.log('error while reg', err);
               }
@@ -110,4 +111,4 @@ export default {
 
 <style>
 
-</style>template
+</style>

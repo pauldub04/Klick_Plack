@@ -4,6 +4,11 @@
 
     <v-content>
       <v-container fluid>
+          <v-row align="center" class="mb-10">
+              <v-btn outlined to="/clicker" color="primary">
+                  <v-icon>mdi-arrow-left</v-icon>
+              </v-btn>
+          </v-row>
           <v-card width="550" class="mx-auto my-10">
             <v-card-title class="py-6">
               <h1>Отправить</h1>
